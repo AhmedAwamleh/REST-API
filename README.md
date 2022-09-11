@@ -1,1 +1,1 @@
-# REST-API
+# whiteboard-backend
