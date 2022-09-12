@@ -1,0 +1,31 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tets": "jest --coverage --verbose",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmedAwamleh/whiteboard-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmedAwamleh/whiteboard-backend/issues"
+  },
+  "homepage": "https://github.com/AhmedAwamleh/whiteboard-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "pg": "^8.8.0",
+    "sequelize": "^6.21.6"
+  },
+  "devDependencies": {
+    "jest": "^29.0.3",
+    "supertest": "^6.2.4"
+  }
+}
