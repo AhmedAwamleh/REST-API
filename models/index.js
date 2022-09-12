@@ -5,7 +5,7 @@ const POSTGRES_URL = process.env.DATABASE_URL || "postgresql://awamleh:a@localho
 // const POSTGRES_URL = process.env.DATABASE_URL || "postgresql://postgres:1312@localhost:4532/post"
 
 const sequelizeOption = {
-    dialectOption: {
+    dialectOptions: {
         ssl: {
             require: true,
             rejectUnauthorized: false
