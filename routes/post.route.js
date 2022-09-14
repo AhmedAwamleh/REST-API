@@ -5,9 +5,9 @@ const { Post } = require('../models/index')
 
 router.get('/post', getPost);
 router.post('/post', createPosts);
-router.get('/getOnePost/:id', getOnePost);
-router.delete('/deletPost/:id', deletePost);
-router.delete('/updatePost/:id', updatePost);
+router.get('/post/:id', getOnePost);
+router.delete('/post/:id', deletePost);
+router.put('/post/:id', updatePost);
 
 async function getPost(req, res) {
     let post = await Post.findAll();
@@ -21,6 +21,8 @@ async function createPosts(req, res) {
     let post = await Post.create(newPost)
     res.status(201).json(post)
 }
+
+
 async function getOnePost(req, res) {
     let id = req.params.id
     let post = await Post.findOne({

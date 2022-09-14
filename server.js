@@ -4,9 +4,10 @@ const cors = require('cors')
 const app = express();
 app.use(cors());
 const postRouter = require('./routes/post.route')
+const commentRouter = require('./routes/commint.route')
 app.use(express.json());
 app.use(postRouter)
-
+app.use(commentRouter)
 
 app.get('/', (req, res) => {
     res.status(200).json({
@@ -19,6 +20,5 @@ function start(port) {
 
 }
 module.exports = {
-
     start: start
 }
