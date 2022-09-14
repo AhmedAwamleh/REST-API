@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const { Post } = require('../models/index')
-
+const { Comment } = require('../models/index')
 router.get('/post', getPost);
 router.post('/post', createPosts);
 router.get('/post/:id', getOnePost);
@@ -10,7 +10,7 @@ router.delete('/post/:id', deletePost);
 router.put('/post/:id', updatePost);
 
 async function getPost(req, res) {
-    let post = await Post.findAll();
+    let post = await Post.findAll({ include: [Comment] });
     res.status(200).json({
         post
     })
