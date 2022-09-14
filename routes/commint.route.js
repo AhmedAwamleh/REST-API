@@ -10,7 +10,7 @@ router.delete('/comment/:id', deleteComment);
 
 
 async function getAllComment(req, res) {
-    const comments = await Comment.findAll();
+    const comments = await Comment.read();
     res.status(200).json({ comments })
 }
 
