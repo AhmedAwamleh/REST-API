@@ -4,10 +4,13 @@ const cors = require('cors')
 const app = express();
 app.use(cors());
 const postRouter = require('./routes/post.route')
-const commentRouter = require('./routes/commint.route')
+const commentRouter = require('./routes/commint.route');
+const userRoute = require('./routes/user.route');
 app.use(express.json());
+
 app.use(postRouter)
 app.use(commentRouter)
+
 
 app.get('/', (req, res) => {
     res.status(200).json({
@@ -15,6 +18,7 @@ app.get('/', (req, res) => {
         code: 200
     })
 })
+app.use(userRoute);
 function start(port) {
     app.listen(port, () => console.log(`up and running on port ${port}`))
 

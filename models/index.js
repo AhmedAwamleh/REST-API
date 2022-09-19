@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const post = require('./post.model');
 const comment = require('./comment.model')
 const collection = require('../collections/user-comment-routs')
-
+const User = require('./user.models');
 const POSTGRES_URL = process.env.DATABASE_URL || "postgresql://awamleh:a@localhost:5432/awamleh";
 // const POSTGRES_URL = process.env.DATABASE_URL || "postgresql://postgres:1312@localhost:4532/post"
 
@@ -18,7 +18,7 @@ const sequelizeOption = {
 
 
 let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
-
+const userModel = User(sequelize, DataTypes);
 const postModel = post(sequelize, DataTypes)
 const commentModel = comment(sequelize, DataTypes)
 const postCollection = new collection(postModel);
@@ -30,5 +30,6 @@ module.exports = {
     db: sequelize,
     Post: postCollection,
     Comment: commentCollection,
-    CommentModel: commentModel
+    CommentModel: commentModel,
+    UserModel: userModel
 };
