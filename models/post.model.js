@@ -1,3 +1,5 @@
+
+
 'use strict';
 
 const Post = (sequelize, DataTypes) => sequelize.define('Post', {
@@ -10,12 +12,7 @@ const Post = (sequelize, DataTypes) => sequelize.define('Post', {
         defaultValue: 'hello'
     },
 
+
 });
 
 module.exports = Post;
-
-
-
-
-
-

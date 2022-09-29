@@ -1,32 +1,29 @@
-'use strict'
+'use strict';
 
-const { UserModel } = require("../models/index");
+const { User } = require("../models");
+
 module.exports = async (req, res, next) => {
   console.log('From inside the middleware');
   if (!req.headers.authorization) (
-    next(' not authorized!!!')
+    next('Youre not authorized')
   )
 
   const token = req.headers.authorization.split(' ').pop();
-  console.log(token)
-  const validUser = await UserModel.authenticateToken(token)
-  try {
-    const userInfo = await UserModel.findOne({
-      where: { username: validUser.username }
 
-    });
+  try {
+    const validUser = User.authenticateToken(token);
+
+    const userInfo = await User.findOne({ where: { userName: validUser.userName } });
     if (userInfo) {
-      req.user = userInfo,
-        req.token = userInfo.token
+      req.user = userInfo;
+      req.token = userInfo.token
+
       next();
     } else {
-      next('not authorized');
+      next('Youre not authorized')
     }
-    console.log(userInfo)
 
-  } catch (error) {
-    next(error)
+  } catch (e) {
+    next(e)
   }
-
 }
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFobWVkIiwiaWF0IjoxNjYzNzk5MDUxfQ.ZiR47HgMAQOmJwzH-CKkDQ-3ZCelakC7B7lbKQ4KQvk
