@@ -1,7 +1,6 @@
 'use strict'
 
-
-const Comment = (sequelize, DataTypes) => sequelize.define('Comment', {
+const Comment = (sequelize, DataTypes) => sequelize.define('CommentsTable', {
     ownerID: {
         type: DataTypes.INTEGER,
         allowNull: false
