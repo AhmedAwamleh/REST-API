@@ -43,11 +43,11 @@ async function updateComment(req, res) {
 }
 async function deleteComment(req, res) {
     const id = req.params.id
-    let deleteComment = await Comment.destroy({
-        where: { id: id }
+    let deleteComment = await Comment.delete({
+        where: { id }
 
     })
-    res.status(204).json(deleteComment)
+    res.status(204).json(`${deleteComment} was delete`)
 }
 
 module.exports = router

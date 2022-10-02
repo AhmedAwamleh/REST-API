@@ -26,15 +26,23 @@ const userModel = User(sequelize, DataTypes)
 
 postModel.hasMany(commentModel, { foreignKey: 'ownerID', sourceKey: 'id' })
 commentModel.belongsTo(postModel, { foreignKey: 'ownerID', targetKey: 'id' })
+userModel.hasMany(postModel, { foreignKey: 'postId', sourceKey: 'id' })
+postModel.belongsTo(userModel, { foreignKey: 'postId', targetKey: 'id' })
+userModel.hasMany(commentModel, { foreignKey: 'postId', sourceKey: 'id' })
+commentModel.belongsTo(userModel, { foreignKey: 'postId', targetKey: 'id' })
+
 const postCollection = new Collection(postModel)
 const commenttCollection = new Collection(commentModel)
+const userCollection = new Collection(userModel)
 
 module.exports = {
     db: sequelize,
     Post: postCollection,
     Comment: commenttCollection,
     commentModel: commentModel,
-    User: userModel
+    User: userModel,
+    postModel: postModel,
+    userCollection: userCollection
 }
 
 

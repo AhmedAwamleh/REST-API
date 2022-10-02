@@ -8,13 +8,13 @@ const saveUser = async (req, res, next) => {
     const username = await User.findOne({
       where: {
         userName: req.body.userName
-
       }
     });
 
     if (username) {
       return res.status(409).send('Username already taken')
     }
+
 
     const email = await User.findOne({
       where: {
