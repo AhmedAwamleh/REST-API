@@ -1,15 +1,17 @@
 'use strict'
-const User = require('../models').User
+
 const bcrypt = require('bcrypt')
 const base64 = require('base-64')
-
+const { User } = require('../models/index')
 const signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { userName, email, password, role } = req.body;
+    console.log(req.body)
     const data = {
       userName,
       email,
-      password: await bcrypt.hash(password, 10)
+      password: await bcrypt.hash(password, 10),
+      role
     };
     const user = await User.create(data);
     if (user) {
@@ -22,7 +24,7 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const basicHeader = req.headers.authorization.split(' ');
-  console.log(basicHeader);
+  console.log(req.headers.authorization);
   const encodedValue = basicHeader.pop();
   const decodedValue = base64.decode(encodedValue);
   const [userName, password] = decodedValue.split(':');
@@ -44,13 +46,15 @@ const login = async (req, res) => {
 };
 
 
-const users = async (req, res) => {
-  const users = await User.findAll()
-  res.status(200).json(users)
+const allUser = async (req, res) => {
+  // console.log(req.user.capabilities)
+  const users = await User.findAll();
+  res.json(users);
 }
+
 
 module.exports = {
   signup,
-  users,
-  login
+  allUser,
+  login,
 }

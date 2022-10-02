@@ -10,7 +10,7 @@ class postAndcomment {
             return await this.model.create(opj)
 
         } catch (e) {
-            console.error('error during creation')
+            console.log(e)
         }
     }
     async read(id) {
@@ -37,7 +37,7 @@ class postAndcomment {
             return await this.model.destroy({ where: { id: id } })
 
         } catch (e) {
-            console.error(`error whiel Deletig data with id${id}`)
+            console.error(`error whiel Deletig data with id=${id}`)
 
         }
 
@@ -45,7 +45,7 @@ class postAndcomment {
     async readWithComment(Comment) {
         try {
             return await this.model.findAll(
-                { include: Comment }
+                { include: [Comment] }
             )
 
         } catch (e) {

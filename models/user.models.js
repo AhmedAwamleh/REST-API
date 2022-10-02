@@ -4,13 +4,15 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('userTable', {
     userName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      notEmpty: true
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
       isEmail: true,
-      allowNull: false
+      allowNull: false,
+      notEmpty: true
     },
     password: {
       type: DataTypes.STRING,
@@ -24,17 +26,34 @@ module.exports = (sequelize, DataTypes) => {
         }, process.env.JWT_SECRET)
       },
       set(tokenObj) {
-        return jwt.sign(tokenObj, process.JWT_SECRET)
+        return jwt.sign(tokenObj, process.env.JWT_SECRET)
       }
+    },
+    role: {
+      type: DataTypes.ENUM('admin', 'user', 'test'),
+      allowNull: false,
+      defaultValue: 'test'
+    },
+    capabilities: {
+      type: DataTypes.VIRTUAL,
+      get: function () {
+        const acl = {
+          admin: ['read', 'create', 'delete', 'update'],
+          user: ['read', 'create'],
+          test: ['read']
 
-
+        }
+        return acl[this.role]
+      }
     }
   });
+
   User.authenticateToken = token => {
 
     return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
-        return err;
+        console.log(err);
+        return err
       } else {
         return decoded
       }
@@ -44,4 +63,3 @@ module.exports = (sequelize, DataTypes) => {
   return User;
 }
 
-// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFsaSIsImlhdCI6MTY2NDMxMDE4MX0.SaO9T1_YabPmdluHarZpEaWfX2S3vSkg0jP1B55TCUo"

@@ -12,6 +12,11 @@ const Post = (sequelize, DataTypes) => sequelize.define('Post', {
         defaultValue: 'hello'
     },
 
+    postId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+
 
 });
 
