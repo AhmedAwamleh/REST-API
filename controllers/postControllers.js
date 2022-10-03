@@ -12,6 +12,7 @@ const allPost = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
+  console.log(req)
   try {
     const data = req.body;
     const createdPost = await postModel.create(data);

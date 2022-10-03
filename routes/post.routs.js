@@ -4,7 +4,7 @@
 const express = require('express')
 const app = express()
 const router = express.Router();
-// const { Post } = require('../models/index')
+const { postModel } = require('../models/index')
 // const { commentModel, userModel } = require('../models/index')
 const { allPost, createPost, deletePost, updatePost } = require('../controllers/postControllers')
 // const { deletePost } = require('../controllers/userControllers')
@@ -12,13 +12,13 @@ const Acl = require('../middlewares/ACL')
 const bearerAuth = require('../middlewares/bearerAuth')
 app.use(express.json())
 router.get('/post', allPost);
-router.post('/post', bearerAuth, Acl('create'), createPost);
+router.post('/post', createPost);
 router.delete('/post/:id', bearerAuth, Acl('delete'), deletePost);
 router.put('/post/:id', bearerAuth, Acl('update'), updatePost);
 // router.get('/CommentPost', getpostAndComment)
 // router.get('/post', getPost)
 // router.post('/post', createPost)
-// router.get('/post/:id', findeOnePost)
+router.get('/post/:id', findeOnePost)
 // router.delete('/post/:id', bearerAuth, deletePost)
 // router.put('/post/:id', updatePost)
 
@@ -37,17 +37,19 @@ router.put('/post/:id', bearerAuth, Acl('update'), updatePost);
 
 // }
 
-// async function findeOnePost(req, res) {
-//     const id = req.params.id
-//     const post = await Post.read({
-//         where: {
-//             id: id
-//         }
-//     });
-//     res.status(200).json({
-//         post
-//     })
-// }
+async function findeOnePost(req, res) {
+
+  const id = req.params.id
+  const post = await postModel.findOne({
+    where: {
+      id: id
+    },
+    include: { all: true }
+  });
+  res.status(200).json({
+    post
+  })
+}
 
 // // async function deletepost(req, res) {
 // //     const id = req.params.id;
@@ -74,9 +76,9 @@ router.put('/post/:id', bearerAuth, Acl('update'), updatePost);
 // }
 
 // async function getpostAndComment(req, res) {
-//     const postComment = await Post.readWithComment(commentModel)
-//     console.log(postComment)
-//     res.status(200).json(postComment)
+//   const postComment = await Post.readWithComment(commentModel)
+//   console.log(postComment)
+//   res.status(200).json(postComment)
 // }
 
 module.exports = router

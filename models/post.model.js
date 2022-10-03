@@ -12,7 +12,7 @@ const Post = (sequelize, DataTypes) => sequelize.define('Post', {
         defaultValue: 'hello'
     },
 
-    postId: {
+    userID: {
         type: DataTypes.INTEGER,
         allowNull: false
     }

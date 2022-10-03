@@ -1,7 +1,7 @@
 'use strict'
 
 const Comment = (sequelize, DataTypes) => sequelize.define('CommentsTable', {
-    ownerID: {
+    postID: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -9,7 +9,7 @@ const Comment = (sequelize, DataTypes) => sequelize.define('CommentsTable', {
         type: DataTypes.STRING,
         defaultValue: 'comment'
     },
-    postId: {
+    userID: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
